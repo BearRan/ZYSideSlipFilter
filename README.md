@@ -15,12 +15,12 @@ side slip filter with your goods page, support custom action, custom region, cus
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/ZYSideSlipFilter/ZYSideSlipFilterGif.gif)
 <br>
-#CocoaPods  
+# CocoaPods  
 ```
 pod 'ZYSideSlipFilter', '~> 0.5.0'
 ``` 
 
-#Features  
+# Features  
 [ZYSideSlipFilter](https://github.com/liuzhiyi1992/ZYSideSlipFilter)是一个侧边栏条件筛选器，功能当然就是那个，选择条件，保存选择状态，重置条件。即插即拔，基本支持自定义任何内脏，样式如何完全由你制定，Demo我做成了商城风格，其实怎样用全在于你自己。ZYSideSlipFilter的工作核心是数据源，它贯穿了整个工作流程。  
 
 以下是Demo做出来的效果(样式仅供参考, 怎么定制全看个人喜好)，大致结构是这样的：
@@ -32,30 +32,30 @@ pod 'ZYSideSlipFilter', '~> 0.5.0'
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/ZYSideSlipFilter/ZYSideSlipFilterModel%E7%BB%93%E6%9E%84%E5%9B%BE%E6%88%AA%E5%9B%BE%E6%9B%B4%E6%96%B0.jpg)  
 
-#Structure
-###ZYSideSlipFilterRegionModel和containerCellClass
+# Structure
+### ZYSideSlipFilterRegionModel和containerCellClass
 图看起来有点复杂，没关系我们只需要认识最左边的```ZYSideSlipFilterRegionModel```，一个RegionModel代表一个筛选区域，也就是说我们需要在Filter里增加一个筛选区域，就创建一个RegionModel，Filter数据源里放的就是这个东西。而在RegionModel里面，最基本的我们只需要认识```containerCellClass```这个property, 它代表这个这个筛选区域的UI布局和逻辑代码所在的类(TableviewCell), 我们要求该自定义类继承自```SideSlipBaseTableViewCell```, ==自定义筛选区域tableViewCell，创建RegionModel，赋值containerCellClass，放进dataList，我们自己的Filter就能显示出来了==  
 
-###配置筛选项
+### 配置筛选项
 上图中我们可以看见Demo的3块筛选区域截图，下箭头对应了他们的RegionModel内容，最基本的containerCellClass配置好后，我们可以用```regionTitle```存储区域标题，用```itemList```来存储自定义的选项Model，```isShowAll```标识着是否展开全部选项，```selectedItemList```存储着用户选中的选项Model，这里再提一遍，用户发生交互后，我们是要修改RegionModel的，用户提交筛选时我们会拿到这些修改。对于以上这些property我们不用，或者不满足需求都没关系，```customDict```给你放任何附加内容。
 
-###自适应cell高度
+### 自适应cell高度
 ZYSideSlipFilter会在每次reloadData时动态适配cell高度，前提是cell内subviews横向纵向都部署好了对tableViewContentView的自动约束，必须是对```ContentView```!!，对tableView无效!!  
 如果需要设置固定高度，则可以重写父类SideSlipBaseTableViewCell的```+ cellHeight```方法即可。  
 
-###SideSlipFilter数据交流的方法  
+### SideSlipFilter数据交流的方法  
 > 上面了解完如何去创建自己的Filter后，以下就是主要协同工作的api:  
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/ZYSideSlipFilter/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AD%9B%E9%80%89%E5%8C%BA%E5%9F%9Fcell%E7%B1%BB%E7%BB%93%E6%9E%84%E5%9B%BE.png)
 
 
-#Config
-####**配置文件ZYSideSlipFilterConfig**
+# Config
+#### **配置文件ZYSideSlipFilterConfig**
 - FILTER\_NAVIGATION\_CONTROLLER\_CLASS  
 Filter的导航控制器Class(构造方法只支持- initWithRootViewController:)  
 - 各种UI参数
 
-####**语言本地化Localizable.strings**  
+#### **语言本地化Localizable.strings**  
 目前配置了两个bottomButton的title string，有需要可以在自己项目的.strings文件中配置，不配置则默认为Reset, Commit
 ```
 "sZYFilterReset" = "Reset";
@@ -63,8 +63,8 @@ Filter的导航控制器Class(构造方法只支持- initWithRootViewController:
 ``` 
 <br>
 
-#Usage  
-####ZYSideSlipFilterController  
+# Usage  
+#### ZYSideSlipFilterController  
 创建ZYSideSlipFilterController实例，让呼出者controller持有它，这样我们能够保持着Filter的状态并且能够多次呼出(我们要求呼出者必须有navigationController)  
 ```objc
 self.filterController = [[ZYSideSlipFilterController alloc] initWithSponsor:self 
@@ -89,7 +89,7 @@ _filterController.dataList = [self packageDataList];
 [_filterController show];
 ```
 
-####自定义筛选RegionCell  
+#### 自定义筛选RegionCell  
 ```objc
 @interface Custom***TableViewCell : SideSlipBaseTableViewCell
 ```  
@@ -120,11 +120,11 @@ _filterController.dataList = [self packageDataList];
 
 
 
-###Demo自定义Region示意图
+### Demo自定义Region示意图
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/ZYSideSlipFilter/Demo%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AD%9B%E9%80%89%E5%8C%BA%E5%9F%9F%E7%A4%BA%E6%84%8F%E5%9B%BE%E8%A3%81%E5%89%AA.png)
 <br>
-###Demo所包含演示内容  
+### Demo所包含演示内容  
 - 筛选项折叠展开
 - 筛选项单双选
 - 筛选区域push新页
@@ -135,5 +135,5 @@ _filterController.dataList = [self packageDataList];
 
 
 <br>
-#License  
+# License  
 ZYSideSlipFilter is released under the MIT license.
